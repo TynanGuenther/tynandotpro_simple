@@ -21,13 +21,10 @@ Copy ()
 }
 Add ()
 {
-  fileName=${AddOpts[0]}
-  if ${#AddOpts[@]}==2; then
-    DisName=${AddOpts[1]}
-  fi
+
   if test -f $SITE_DIR/$fileName; then
-    new_li="<li><a href\"/$fileName\">$DisName</a></li>"
-    sed -i '/<\/ul>/i '"$new_li"'' $SITE_DIR
+    new_li="\\\\t\t\t\t\t\\<li><a href\"/$fileName\">$DisName</a></li>"
+    sed -i '/<!-- HERE -->/i '"$new_li"'' "$SITE_DIR/index.html"
   else
     echo "Error $fileName Does Not Exist!"
   fi
@@ -35,7 +32,7 @@ Add ()
 }
 
 #Get options
-while getopts ":hn:a" option; do
+while getopts ":hn:a:" option; do
   case $option in
     h) #Show help page
       Help
@@ -46,7 +43,11 @@ while getopts ":hn:a" option; do
       vim $SITE_DIR/$Name
       exit;;
     a) # Add to list in public/index.html
-      AddOpts+=("$OPTARG")
+      fileName=${OPTARG}
+      if [[ "${!OPTIND}" != "-"* ]]; then
+        DisName=${!OPTIND}
+        OPTIND=$((OPTIND + 1))
+      fi
       Add
       exit;;
     \?) #Invalid option
