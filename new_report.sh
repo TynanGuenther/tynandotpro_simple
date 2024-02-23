@@ -9,6 +9,16 @@
 Name=$(date +%Y-%m-%d)
 DisName="$Name"
 
+Help ()
+{
+  echo "This is a tool to add blog/report entries to a website folder"
+  echo "These are the options and how to use it"
+  echo "newreport"
+  echo "  no args will create a new report in the Sites Directory based of the Base report"
+  echo "  -h displays this page"
+  echo "  -n [NAME]: will create a new report with the given name as the filename"
+  echo "  -a [FILENAME] [NAME]: will add the created file to the list of files in the index.html file if the FILENAME exists with the name NAME"
+}
 
 Copy ()
 {
@@ -38,7 +48,7 @@ while getopts ":hn:a:" option; do
       Help
       exit;;
     n) # Create new report
-      Name=$OPTARG
+      Name="$OPTARG.html"
       Copy
       vim $SITE_DIR/$Name
       exit;;
