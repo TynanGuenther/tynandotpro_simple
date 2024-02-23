@@ -6,14 +6,18 @@
 # [ ]add filename to list in index.html with -a [Name]
 # [ ]open file with vim
 
-Name=date'+%Y-%m-%d'
+Name=$(date +%Y-%m-%d)
 DisName="$Name"
 
 
 Copy ()
 {
-  cp $BASE_REPORT $SITE_DIR
-  mv $SITE_DIR/base_report.html $SITE_DIR/$Name
+  if cp "$BASE_REP" "$SITE_DIR"; then
+    mv "$SITE_DIR/base_report.html" "$Name"
+  else
+    echo "Could Not Copy File"
+    exit
+  fi
 }
 Add ()
 {
@@ -26,19 +30,21 @@ Add ()
     sed -i '/<\/ul>/i '"$new_li"'' $SITE_DIR
   else
     echo "Error $fileName Does Not Exist!"
-    exit;;
   fi
 
 }
 
 #Get options
-while getopts ":hna" option; do
+while getopts ":hn:a" option; do
   case $option in
     h) #Show help page
       Help
       exit;;
     n) # Create new report
-      Name=$OPTARG;;
+      Name=$OPTARG
+      Copy
+      vim $SITE_DIR/$Name
+      exit;;
     a) # Add to list in public/index.html
       AddOpts+=("$OPTARG")
       Add
@@ -48,6 +54,4 @@ while getopts ":hna" option; do
       exit;;
   esac
 done
-
 Copy
-vim $SITE_DIR/$Name
