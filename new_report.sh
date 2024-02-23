@@ -13,7 +13,7 @@ DisName="$Name"
 Copy ()
 {
   if cp "$BASE_REP" "$SITE_DIR"; then
-    mv "$SITE_DIR/base_report.html" "$Name"
+    mv "$SITE_DIR/base_report.html" "$SITE_DIR/$Name"
   else
     echo "Could Not Copy File"
     exit
