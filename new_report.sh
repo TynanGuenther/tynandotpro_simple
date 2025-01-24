@@ -1,10 +1,11 @@
 #!/bin/bash
 
 #TODO 
-# [ ]copy base_report.html to public/
-# [ ]rename that file to the first argument -n [FileName]
-# [ ]add filename to list in index.html with -a [Name]
-# [ ]open file with vim
+# [X]copy base_report.html to public/
+# [X]rename that file to the first argument -n [FileName]
+# [X]add filename to list in index.html with -a [Name]
+# [X]open file with vim
+# [ ] Delete Reports
 
 Name=$(date +%Y-%m-%d)
 DisName="$Name"
