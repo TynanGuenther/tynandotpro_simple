@@ -22,4 +22,4 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
-static/plan_to_stop_slacking.html
+public/plan_to_stop_slacking.html
